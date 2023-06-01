@@ -4,6 +4,7 @@ function ErrorPage(): JSX.Element {
   const error: unknown = useRouteError();
   console.error(error);
 
+  // apply narrowing due to unknown type
   if (isRouteErrorResponse(error)) {
     return (
       <div id='error-page'>
