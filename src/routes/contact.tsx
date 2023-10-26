@@ -1,12 +1,12 @@
 import { Form } from "react-router-dom";
 
 interface ContactObject {
-    first: string;
-    last: string;
-    avatar: string;
-    twitter: string;
-    notes: string;
-    favorite: boolean;
+  first: string;
+  last: string;
+  avatar: string;
+  twitter: string;
+  notes: string;
+  favorite: boolean;
 }
 
 function Contact(): JSX.Element {
@@ -68,7 +68,7 @@ function Contact(): JSX.Element {
   );
 }
 
-function Favorite({ contact }: {contact: ContactObject}) {
+function Favorite({ contact }: { contact: ContactObject }) {
   // yes, this is a `let` for later
   const favorite = contact.favorite;
   return (

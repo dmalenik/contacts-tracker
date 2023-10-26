@@ -1,3 +1,6 @@
+// where to render root children
+import { Outlet } from "react-router-dom";
+
 function Root(): JSX.Element {
   return (
     <>
@@ -30,7 +33,9 @@ function Root(): JSX.Element {
           </ul>
         </nav>
       </div>
-      <div id="detail"></div>
+      <div id="detail">
+        <Outlet />
+      </div>
     </>
   );
 }
