@@ -1,22 +1,22 @@
 function Root(): JSX.Element {
   return (
     <>
-      <div id='sidebar'>
+      <div id="sidebar">
         <h1>React Router Contacts</h1>
         <div>
-          <form id='search-form' role='search'>
+          <form id="search-form" role="search">
             <input
-              type='search'
-              name='q'
-              id='q'
-              aria-label='Search contacts'
-              placeholder='Search'
+              type="search"
+              name="q"
+              id="q"
+              aria-label="Search contacts"
+              placeholder="Search"
             />
-            <div id='search-spinner' aria-hidden hidden={true} />
-            <div className='sr-only' aria-live='polite'></div>
+            <div id="search-spinner" aria-hidden hidden={true} />
+            <div className="sr-only" aria-live="polite"></div>
           </form>
-          <form method='post'>
-            <button type='submit'>New</button>
+          <form method="post">
+            <button type="submit">New</button>
           </form>
         </div>
         <nav>
@@ -30,7 +30,7 @@ function Root(): JSX.Element {
           </ul>
         </nav>
       </div>
-      <div id='detail'></div>
+      <div id="detail"></div>
     </>
   );
 }
