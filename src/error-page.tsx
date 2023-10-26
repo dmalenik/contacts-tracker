@@ -1,4 +1,4 @@
-import { useRouteError, isRouteErrorResponse } from 'react-router-dom';
+import { useRouteError, isRouteErrorResponse } from "react-router-dom";
 
 function ErrorPage(): JSX.Element {
   const error: unknown = useRouteError();
@@ -7,7 +7,7 @@ function ErrorPage(): JSX.Element {
   // apply narrowing due to unknown type
   if (isRouteErrorResponse(error)) {
     return (
-      <div id='error-page'>
+      <div id="error-page">
         <h1>Ooops!</h1>
         <p>Sorry, an unexpected error has occured.</p>
         <h2>{error.status}</h2>
