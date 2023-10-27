@@ -1,7 +1,18 @@
-// where to render root children
-import { Outlet } from "react-router-dom";
+// Outlet - where to render root children
+// Link - allows to switch to another page without its requesting from the server
+// useLoaderData - access and render data
+import { Outlet, Link, useLoaderData } from "react-router-dom";
+import { getContacts } from "../contacts";
+
+async function loader() {
+  const contacts = await getContacts(null);
+
+  return { contacts };
+}
 
 function Root(): JSX.Element {
+  const { contacts } = useLoaderData();
+
   return (
     <>
       <div id="sidebar">
