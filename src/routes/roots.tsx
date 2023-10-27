@@ -34,14 +34,36 @@ function Root(): JSX.Element {
           </form>
         </div>
         <nav>
-          <ul>
+          {contacts.length ? (
+            <ul>
+              {contacts.map((contact: unknown) => (
+                <li key={contact.id}>
+                  <Link to={`contacts/${contact.id}`}>
+                    {contact.first || contact.last ? (
+                      <>
+                        {contact.first} {contact.last}
+                      </>
+                    ) : (
+                      <i>No Name</i>
+                    )}{" "}
+                    {contact.favorite && <span>&starf;</span>}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>
+              <i>No contacts</i>
+            </p>
+          )}
+          {/* <ul>
             <li>
-              <a href={`/contacts/1`}>Your Name</a>
+              <Link to={`/contacts/1`}>Your Name</Link>
             </li>
             <li>
-              <a href={`/contacts/2`}>Your Friend</a>
+              <Link to={`/contacts/2`}>Your Friend</Link>
             </li>
-          </ul>
+          </ul> */}
         </nav>
       </div>
       <div id="detail">
@@ -52,3 +74,4 @@ function Root(): JSX.Element {
 }
 
 export default Root;
+export { loader };
