@@ -1,8 +1,14 @@
 // Outlet - where to render root children
 // Link - allows to switch to another page without its requesting from the server
 // useLoaderData - access and render data
-import { Outlet, Link, useLoaderData } from "react-router-dom";
-import { getContacts } from "../contacts";
+import { Outlet, Link, useLoaderData, Form, redirect } from "react-router-dom";
+import { getContacts, createContact } from "../contacts";
+
+async function action() {
+  const contact = await createContact();
+  
+  return redirect(`/contacts/${contact.id}/edit`);
+}
 
 async function loader() {
   const contacts = await getContacts(null);
@@ -29,9 +35,12 @@ function Root(): JSX.Element {
             <div id="search-spinner" aria-hidden hidden={true} />
             <div className="sr-only" aria-live="polite"></div>
           </form>
-          <form method="post">
+          {/* <form method="post">
             <button type="submit">New</button>
-          </form>
+          </form> */}
+          <Form method="post">
+            <button type="submit">New</button>
+          </Form>
         </div>
         <nav>
           {contacts.length ? (
@@ -74,4 +83,4 @@ function Root(): JSX.Element {
 }
 
 export default Root;
-export { loader };
+export { action, loader };

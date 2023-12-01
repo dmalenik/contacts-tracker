@@ -1,7 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Root, { loader as rootLoader } from "./routes/roots";
+import Root, {
+  loader as rootLoader,
+  action as rootAction,
+} from "./routes/root";
 import ErrorPage from "./error-page";
 import "./index.css";
 import Contact, { loader as contactLoader } from "./routes/contact";
