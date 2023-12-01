@@ -8,6 +8,7 @@ interface ContactObject {
   notes: string;
   favorite: boolean;
 }
+  
 
 function Contact(): JSX.Element {
   const contact: ContactObject = {
