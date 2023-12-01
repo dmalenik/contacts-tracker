@@ -1,4 +1,5 @@
-import { Form } from "react-router-dom";
+import { Form, useLoaderData } from "react-router-dom";
+import { getContact } from "../contacts";
 
 interface ContactObject {
   first: string;
@@ -9,6 +10,11 @@ interface ContactObject {
   favorite: boolean;
 }
   
+async function loader({ params }) {
+  const contact = await getContact(params.contactId);
+  
+  return { contact };
+}
 
 function Contact(): JSX.Element {
   const contact: ContactObject = {
@@ -86,3 +92,4 @@ function Favorite({ contact }: { contact: ContactObject }) {
 }
 
 export default Contact;
+export { loader };
