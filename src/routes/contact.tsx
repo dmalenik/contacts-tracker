@@ -9,7 +9,7 @@ interface ContactObject {
   notes: string;
   favorite: boolean;
 }
-  
+
 async function loader({ params }) {
   const contact = await getContact(params.contactId);
   
@@ -17,6 +17,7 @@ async function loader({ params }) {
 }
 
 function Contact(): JSX.Element {
+  const { contact } = useLoaderData();
   // const contact: ContactObject = {
   //   first: "Your",
   //   last: "Name",
