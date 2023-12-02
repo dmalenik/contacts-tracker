@@ -1,12 +1,20 @@
 // Outlet - where to render root children
 // Link - allows to switch to another page without its requesting from the server
 // useLoaderData - access and render data
-import { Outlet, Link, useLoaderData, Form, redirect } from "react-router-dom";
+import {
+  Outlet,
+  NavLink,
+  Link,
+  useLoaderData,
+  Form,
+  redirect,
+  useNavigation,
+} from "react-router-dom";
 import { getContacts, createContact } from "../contacts";
 
 async function action() {
   const contact = await createContact();
-  
+
   return redirect(`/contacts/${contact.id}/edit`);
 }
 
@@ -18,6 +26,7 @@ async function loader() {
 
 function Root(): JSX.Element {
   const { contacts } = useLoaderData();
+  const navigation = useNavigation();
 
   return (
     <>
@@ -47,16 +56,23 @@ function Root(): JSX.Element {
             <ul>
               {contacts.map((contact: unknown) => (
                 <li key={contact.id}>
-                  <Link to={`contacts/${contact.id}`}>
-                    {contact.first || contact.last ? (
-                      <>
-                        {contact.first} {contact.last}
-                      </>
-                    ) : (
-                      <i>No Name</i>
-                    )}{" "}
-                    {contact.favorite && <span>&starf;</span>}
-                  </Link>
+                  <NavLink
+                    to={`contacts/${contact.id}`}
+                    className={({ isActive, isPending }) =>
+                      isActive ? "active" : isPending ? "pending" : ""
+                    }
+                  >
+                    <Link to={`contacts/${contact.id}`}>
+                      {contact.first || contact.last ? (
+                        <>
+                          {contact.first} {contact.last}
+                        </>
+                      ) : (
+                        <i>No Name</i>
+                      )}{" "}
+                      {contact.favorite && <span>&starf;</span>}
+                    </Link>
+                  </NavLink>
                 </li>
               ))}
             </ul>
@@ -75,7 +91,10 @@ function Root(): JSX.Element {
           </ul> */}
         </nav>
       </div>
-      <div id="detail">
+      <div
+        id="detail"
+        className={navigation.state === "loading" ? "loading" : ""}
+      >
         <Outlet />
       </div>
     </>
