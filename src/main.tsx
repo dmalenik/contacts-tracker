@@ -9,6 +9,7 @@ import ErrorPage from "./error-page";
 import "./index.css";
 import Contact, { loader as contactLoader } from "./routes/contact";
 import EditContact, { action as editAction } from "./routes/edit";
+import Index from "./routes/index";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
         element: <EditContact />,
         loader: contactLoader,
         action: editAction,
+      },
+      {
+        index: true,
+        element: <Index />,
       },
     ],
   },
