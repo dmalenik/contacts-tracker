@@ -1,5 +1,5 @@
-import { Form, useLoaderData } from "react-router-dom";
-import { getContact } from "../contacts";
+import { Form, useLoaderData, useFetcher } from "react-router-dom";
+import { getContact, updateContact } from "../contacts";
 
 interface ContactObject {
   first: string;
@@ -12,8 +12,16 @@ interface ContactObject {
 
 async function loader({ params }) {
   const contact = await getContact(params.contactId);
-  
+
   return { contact };
+}
+
+async function action({ request, params }) {
+  let formData = await request.formData();
+
+  return updateContact(params.contactId, {
+    favorite: formData.get("favorite") === "true",
+  });
 }
 
 function Contact(): JSX.Element {
@@ -77,10 +85,11 @@ function Contact(): JSX.Element {
 }
 
 function Favorite({ contact }: { contact: ContactObject }) {
+  const fetcher = useFetcher();
   // yes, this is a `let` for later
   const favorite = contact.favorite;
   return (
-    <Form method="post">
+    <fetcher.Form method="post">
       <button
         name="favorite"
         value={favorite ? "false" : "true"}
@@ -88,9 +97,9 @@ function Favorite({ contact }: { contact: ContactObject }) {
       >
         {favorite ? "★" : "☆"}
       </button>
-    </Form>
+    </fetcher.Form>
   );
 }
 
 export default Contact;
-export { loader };
+export { loader, action };
