@@ -52,7 +52,10 @@ function Root(): JSX.Element {
               name="q"
               defaultValue={q}
               onChange={(event) => {
-                submit(event.currentTarget.form);
+                const isFirstSearch = q === null;
+                submit(event.currentTarget.form, {
+                  replace: !isFirstSearch,
+                });
               }}
               id="q"
               className={searching ? "loading" : ""}
