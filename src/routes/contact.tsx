@@ -87,7 +87,11 @@ function Contact(): JSX.Element {
 function Favorite({ contact }: { contact: ContactObject }) {
   const fetcher = useFetcher();
   // yes, this is a `let` for later
-  const favorite = contact.favorite;
+  let favorite = contact.favorite;
+  if (fetcher.formData) {
+    favorite = fetcher.formData.get("favorite") === "true";
+  }
+
   return (
     <fetcher.Form method="post">
       <button
