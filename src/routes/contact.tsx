@@ -1,4 +1,4 @@
-import { Form, useLoaderData, useFetcher, Params } from "react-router-dom";
+import { Form, useLoaderData, useFetcher } from "react-router-dom";
 import { getContact, updateContact } from "../contacts";
 
 interface ParamsObject {
