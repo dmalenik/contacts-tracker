@@ -2,7 +2,7 @@ import localforage from "localforage";
 import { matchSorter } from "match-sorter";
 import sortBy from "sort-by";
 
-export async function getContacts(query: string | null) {
+async function getContacts(query: string | null) {
   await fakeNetwork(`getContacts:${query}`);
   let contacts: { id: string; createdAt: number }[] | null =
     await localforage.getItem("contacts");
@@ -13,7 +13,7 @@ export async function getContacts(query: string | null) {
   return contacts.sort(sortBy("last", "createdAt"));
 }
 
-export async function createContact() {
+async function createContact() {
   await fakeNetwork(null);
   const id = Math.random().toString(36).substring(2, 9);
   const contact = { id, createdAt: Date.now() };
@@ -23,7 +23,7 @@ export async function createContact() {
   return contact;
 }
 
-export async function getContact(id: string) {
+async function getContact(id: string) {
   await fakeNetwork(`contact:${id}`);
   const contacts: { id: string; createdAt: number }[] | null =
     await localforage.getItem("contacts");
@@ -33,7 +33,7 @@ export async function getContact(id: string) {
   return contact ?? null;
 }
 
-export async function updateContact(id: string, updates: unknown) {
+async function updateContact(id: string, updates: unknown) {
   await fakeNetwork(null);
   const contacts: { id: string; createdAt: number }[] | null =
     await localforage.getItem("contacts");
@@ -44,7 +44,7 @@ export async function updateContact(id: string, updates: unknown) {
   return contact;
 }
 
-export async function deleteContact(id: string) {
+async function deleteContact(id: string) {
   const contacts: { id: string; createdAt: number }[] | null | undefined =
     await localforage.getItem("contacts");
   const index: number | undefined = contacts?.findIndex(
@@ -83,3 +83,5 @@ async function fakeNetwork(key: string | null) {
     setTimeout(res, Math.random() * 800);
   });
 }
+
+export { getContacts, createContact, getContact, updateContact, deleteContact };
