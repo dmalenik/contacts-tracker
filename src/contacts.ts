@@ -29,17 +29,20 @@ async function createContact() {
   return contact;
 }
 
-async function getContact(id: string) {
+async function getContact(id: string | undefined) {
   await fakeNetwork(`getContact:${id}`);
+
   const contacts: { id: string; createdAt: number }[] | null =
     await localforage.getItem("contacts");
+
   const contact: { id: string; createdAt: number } | undefined = contacts?.find(
     (contact) => contact.id === id,
   );
+
   return contact ?? null;
 }
 
-async function updateContact(id: string, updates: unknown) {
+async function updateContact(id: string | undefined, updates: unknown) {
   await fakeNetwork(`updateContact:${id}`);
 
   const contacts: { id: string; createdAt: number }[] | null =
@@ -55,7 +58,7 @@ async function updateContact(id: string, updates: unknown) {
   return contact;
 }
 
-async function deleteContact(id: string) {
+async function deleteContact(id: string | undefined) {
   const contacts: { id: string; createdAt: number }[] | null | undefined =
     await localforage.getItem("contacts");
   const index: number | undefined = contacts?.findIndex(
@@ -79,7 +82,7 @@ function set(contacts: { id: string; createdAt: number }[] | null | undefined) {
 // fake a cache so we don't slow down stuff we've already seen
 let fakeCache: { [key: string]: boolean } = {};
 
-async function fakeNetwork(key: string | null) {
+async function fakeNetwork(key: string | null | undefined) {
   if (!key) {
     fakeCache = {};
   }
