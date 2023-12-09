@@ -14,6 +14,14 @@ import { getContacts, createContact } from "../contacts";
 import { useEffect } from "react";
 import { useSubmit } from "react-router-dom";
 
+interface ContactsObject {
+  id: string;
+  length: number;
+  first: string;
+  last: string;
+  favorite: string;
+}
+
 async function action() {
   const contact = await createContact();
 
@@ -29,10 +37,12 @@ async function loader({ request }: { request: { url: string } }) {
 }
 
 function Root(): JSX.Element {
-  const { contacts, q } = useLoaderData();
+  const { contacts, q } = useLoaderData() as {
+    contacts: ContactsObject;
+    q: string | number | readonly string[] | undefined;
+  };
   const navigation = useNavigation();
   const submit = useSubmit();
-
   const searching =
     navigation.location &&
     new URLSearchParams(navigation.location.search).has("q");
@@ -75,7 +85,7 @@ function Root(): JSX.Element {
         <nav>
           {contacts.length ? (
             <ul>
-              {contacts.map((contact: unknown) => (
+              {contacts.map((contact: ContactsObject) => (
                 <li key={contact.id}>
                   <NavLink
                     to={`contacts/${contact.id}`}
