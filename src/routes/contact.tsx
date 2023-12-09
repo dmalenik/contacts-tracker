@@ -1,10 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
-import { Form, useLoaderData, useFetcher } from "react-router-dom";
+import { Form, useLoaderData, useFetcher, type Params } from "react-router-dom";
 import { getContact, updateContact } from "../contacts";
-
-interface ParamsObject {
-  contactId: string;
-}
 
 interface ContactObject {
   first: string;
@@ -15,7 +11,21 @@ interface ContactObject {
   favorite: boolean;
 }
 
-async function loader({ params }: { params: ParamsObject }) {
+async function action({
+  request,
+  params,
+}: {
+  request: { formData: () => Promise<FormData> };
+  params: Params;
+}) {
+  const formData = request.formData();
+
+  return updateContact(params.contactId, {
+    favorite: formData.get("favorite") === "true",
+  });
+}
+
+async function loader({ params }: { params: Params }) {
   const contact = await getContact(params.contactId);
 
   if (!contact) {
@@ -26,20 +36,6 @@ async function loader({ params }: { params: ParamsObject }) {
   }
 
   return { contact };
-}
-
-async function action({
-  request,
-  params,
-}: {
-  request: { formData: () => FormData };
-  params: ParamsObject;
-}) {
-  const formData = request.formData();
-
-  return updateContact(params.contactId, {
-    favorite: formData.get("favorite") === "true",
-  });
 }
 
 function Contact(): JSX.Element {

@@ -1,13 +1,13 @@
 /* eslint-disable react-refresh/only-export-components */
-import { Form, useLoaderData, redirect, useNavigate } from "react-router-dom";
+import { Form, useLoaderData, redirect, useNavigate, Params } from "react-router-dom";
 import { updateContact } from "../contacts";
 
 async function action({
   request,
   params,
 }: {
-  request: { formData: () => FormData };
-  params: { contactId: string };
+  request: { formData: () => Promise<FormData> };
+  params: Params;
 }) {
   const formData = request.formData();
   const updates = Object.fromEntries(formData);
