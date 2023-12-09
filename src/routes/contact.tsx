@@ -1,5 +1,9 @@
-import { Form, useLoaderData, useFetcher } from "react-router-dom";
+import { Form, useLoaderData, useFetcher, Params } from "react-router-dom";
 import { getContact, updateContact } from "../contacts";
+
+interface ParamsObject {
+  contactId: string;
+}
 
 interface ContactObject {
   first: string;
@@ -10,7 +14,7 @@ interface ContactObject {
   favorite: boolean;
 }
 
-async function loader({ params }: { params: { contactId: string } }) {
+async function loader({ params }: { params: ParamsObject }) {
   const contact = await getContact(params.contactId);
 
   if (!contact) {
@@ -23,7 +27,13 @@ async function loader({ params }: { params: { contactId: string } }) {
   return { contact };
 }
 
-async function action({ request, params }) {
+async function action({
+  request,
+  params,
+}: {
+  request: { formData: FormData };
+  params: ParamsObject;
+}) {
   let formData = await request.formData();
 
   return updateContact(params.contactId, {
