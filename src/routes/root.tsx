@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 // Outlet - where to render root children
 // Link - allows to switch to another page without its requesting from the server
