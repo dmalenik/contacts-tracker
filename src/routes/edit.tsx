@@ -18,7 +18,15 @@ async function action({
 }
 
 export default function EditContact() {
-  const { contact } = useLoaderData();
+  const { contact } = useLoaderData() as {
+    contact: {
+      first: string;
+      last: string;
+      twitter: string;
+      avatar: string;
+      notes: string;
+    };
+  };
   const navigate = useNavigate();
 
   return (
