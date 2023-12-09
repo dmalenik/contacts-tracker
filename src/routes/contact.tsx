@@ -57,7 +57,11 @@ function Contact(): JSX.Element {
   return (
     <div id="contact">
       <div>
-        <img key={contact.avatar} src={contact.avatar || undefined} />
+        <img
+          alt="avatar"
+          key={contact.avatar}
+          src={contact.avatar || undefined}
+        />
       </div>
 
       <div>
