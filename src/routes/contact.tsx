@@ -42,7 +42,9 @@ async function action({
 }
 
 function Contact(): JSX.Element {
-  const { contact } = useLoaderData();
+  const { contact } = useLoaderData() as {
+    contact: ContactObject;
+  };
   // const contact: ContactObject = {
   //   first: "Your",
   //   last: "Name",
