@@ -18,7 +18,6 @@ import { useSubmit } from "react-router-dom";
 
 interface ContactsObject {
   id: string;
-  length: number;
   first: string;
   last: string;
   favorite: string;
