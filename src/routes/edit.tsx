@@ -17,7 +17,7 @@ async function action({
   return redirect(`/contacts/${params.contactId}`);
 }
 
-export default function EditContact() {
+function EditContact() {
   const { contact } = useLoaderData() as {
     contact: {
       first: string;
@@ -86,4 +86,5 @@ export default function EditContact() {
   );
 }
 
+export default EditContact;
 export { action };
