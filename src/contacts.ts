@@ -2,29 +2,35 @@ import localforage from "localforage";
 import { matchSorter } from "match-sorter";
 import sortBy from "sort-by";
 
-async function getContacts(query: string | null) {
+async function getContacts(query: string) {
   await fakeNetwork(`getContacts:${query}`);
+
   let contacts: { id: string; createdAt: number }[] | null =
     await localforage.getItem("contacts");
+
   if (!contacts) contacts = [];
   if (query) {
     contacts = matchSorter(contacts, query, { keys: ["first", "last"] });
   }
+
   return contacts.sort(sortBy("last", "createdAt"));
 }
 
-async function createContact() {
-  await fakeNetwork(null);
+async function createContact(id1: string) {
+  await fakeNetwork(`createContact:${id1}`);
+
   const id = Math.random().toString(36).substring(2, 9);
   const contact = { id, createdAt: Date.now() };
-  const contacts = await getContacts(null);
+  const contacts = await getContacts(``);
+
   contacts.unshift(contact);
   await set(contacts);
+
   return contact;
 }
 
 async function getContact(id: string) {
-  await fakeNetwork(`contact:${id}`);
+  await fakeNetwork(`getContact:${id}`);
   const contacts: { id: string; createdAt: number }[] | null =
     await localforage.getItem("contacts");
   const contact: { id: string; createdAt: number } | undefined = contacts?.find(
@@ -34,13 +40,18 @@ async function getContact(id: string) {
 }
 
 async function updateContact(id: string, updates: unknown) {
-  await fakeNetwork(null);
+  await fakeNetwork(`updateContact:${id}`);
+
   const contacts: { id: string; createdAt: number }[] | null =
     await localforage.getItem("contacts");
   const contact = contacts?.find((contact) => contact.id === id);
+
   if (!contact) throw new Error(`No contact found for ${id}`);
+
   Object.assign(contact, updates);
+
   await set(contacts);
+
   return contact;
 }
 
@@ -66,9 +77,9 @@ function set(contacts: { id: string; createdAt: number }[] | null | undefined) {
 }
 
 // fake a cache so we don't slow down stuff we've already seen
-let fakeCache = {};
+let fakeCache: { [key: string]: boolean } = {};
 
-async function fakeNetwork(key: string | null) {
+async function fakeNetwork(key: string) {
   if (!key) {
     fakeCache = {};
   }
