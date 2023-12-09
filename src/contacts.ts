@@ -16,8 +16,8 @@ async function getContacts(query: string) {
   return contacts.sort(sortBy("last", "createdAt"));
 }
 
-async function createContact(id1: string) {
-  await fakeNetwork(`createContact:${id1}`);
+async function createContact() {
+  await fakeNetwork(null);
 
   const id = Math.random().toString(36).substring(2, 9);
   const contact = { id, createdAt: Date.now() };
@@ -79,16 +79,18 @@ function set(contacts: { id: string; createdAt: number }[] | null | undefined) {
 // fake a cache so we don't slow down stuff we've already seen
 let fakeCache: { [key: string]: boolean } = {};
 
-async function fakeNetwork(key: string) {
+async function fakeNetwork(key: string | null) {
   if (!key) {
     fakeCache = {};
   }
 
-  if (fakeCache[key]) {
-    return;
-  }
+  if (typeof key === "string") {
+    if (fakeCache[key]) {
+      return;
+    }
 
-  fakeCache[key] = true;
+    fakeCache[key] = true;
+  }
 
   return new Promise((res) => {
     setTimeout(res, Math.random() * 800);

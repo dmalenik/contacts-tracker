@@ -12,7 +12,7 @@ import {
   redirect,
   useNavigation,
 } from "react-router-dom";
-import { getContacts, createContact } from "../contacts";
+import { getContact, createContact } from "../contacts";
 import { useEffect } from "react";
 import { useSubmit } from "react-router-dom";
 
@@ -33,7 +33,11 @@ async function action() {
 async function loader({ request }: { request: { url: string } }) {
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
-  const contacts = await getContacts(q);
+  let contacts = null;
+
+  if (typeof q === "string") {
+    contacts = await getContact(q);
+  }
 
   return { contacts, q };
 }
