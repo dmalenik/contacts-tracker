@@ -54,7 +54,7 @@ function Root(): JSX.Element {
     new URLSearchParams(navigation.location.search).has("q");
 
   useEffect(() => {
-    (document!.querySelector("#q") as HTMLInputElement)!.value = q;
+    (document?.querySelector("#q") as HTMLInputElement).value = q;
   }, [q]);
 
   return (
