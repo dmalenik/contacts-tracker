@@ -32,11 +32,7 @@ async function action() {
 async function loader({ request }: { request: { url: string } }) {
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
-  let contacts = null;
-
-  if (typeof q === "string") {
-    contacts = await getContact(q);
-  }
+  const contacts = await getContacts(q);
 
   return { contacts, q };
 }
