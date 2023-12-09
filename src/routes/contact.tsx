@@ -34,7 +34,7 @@ async function action({
   request: { formData: () => FormData };
   params: ParamsObject;
 }) {
-  const formData = await request.formData();
+  const formData = request.formData();
 
   return updateContact(params.contactId, {
     favorite: formData.get("favorite") === "true",
