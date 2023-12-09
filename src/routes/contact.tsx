@@ -31,7 +31,7 @@ async function action({
   request,
   params,
 }: {
-  request: { formData: FormData };
+  request: { formData: () => FormData };
   params: ParamsObject;
 }) {
   const formData = await request.formData();
