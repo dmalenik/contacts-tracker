@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { Form, useLoaderData, useFetcher } from "react-router-dom";
 import { getContact, updateContact } from "../contacts";
 
