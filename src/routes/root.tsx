@@ -41,7 +41,7 @@ async function loader({ request }: { request: { url: string } }) {
 function Root(): JSX.Element {
   const { contacts, q } = useLoaderData() as {
     contacts: ContactsObject[];
-    q: string | number | readonly string[] | undefined;
+    q: string;
   };
   const navigation = useNavigation();
   const submit = useSubmit();
@@ -50,7 +50,7 @@ function Root(): JSX.Element {
     new URLSearchParams(navigation.location.search).has("q");
 
   useEffect(() => {
-    document!.querySelector("#q")!.value = q;
+    (document!.querySelector("#q") as HTMLInputElement)!.value = q;
   }, [q]);
 
   return (
@@ -62,7 +62,7 @@ function Root(): JSX.Element {
             <input
               type="search"
               name="q"
-              defaultValue={q}
+              value={q}
               onChange={(event) => {
                 const isFirstSearch = q === null;
                 submit(event.currentTarget.form, {
