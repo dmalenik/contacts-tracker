@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { Form, useLoaderData, redirect, useNavigate } from "react-router-dom";
 import { updateContact } from "../contacts";
 
