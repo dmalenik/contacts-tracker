@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 // Outlet - where to render root children
 // Link - allows to switch to another page without its requesting from the server
 // useLoaderData - access and render data
@@ -48,7 +49,7 @@ function Root(): JSX.Element {
     new URLSearchParams(navigation.location.search).has("q");
 
   useEffect(() => {
-    document!.getElementById("q")!.value = q;
+    document!.querySelector("#q")!.value = q;
   }, [q]);
 
   return (
