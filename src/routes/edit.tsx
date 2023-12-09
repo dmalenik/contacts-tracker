@@ -9,7 +9,7 @@ async function action({
   request: { formData: () => Promise<FormData> };
   params: Params;
 }) {
-  const formData = request.formData();
+  const formData = await request.formData();
   const updates = Object.fromEntries(formData);
 
   await updateContact(params.contactId, updates);
