@@ -12,7 +12,7 @@ import {
   redirect,
   useNavigation,
 } from "react-router-dom";
-import { getContact, createContact } from "../contacts";
+import { getContacts, createContact } from "../contacts";
 import { useEffect } from "react";
 import { useSubmit } from "react-router-dom";
 
