@@ -10,7 +10,7 @@ interface ContactObject {
   favorite: boolean;
 }
 
-async function loader({ params }) {
+async function loader({ params }: { params: { contactId: string } }) {
   const contact = await getContact(params.contactId);
 
   if (!contact) {
