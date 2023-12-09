@@ -2,7 +2,7 @@ import localforage from "localforage";
 import { matchSorter } from "match-sorter";
 import sortBy from "sort-by";
 
-async function getContacts(query: string) {
+async function getContacts(query: string | null) {
   await fakeNetwork(`getContacts:${query}`);
 
   let contacts: { id: string; createdAt: number }[] | null =
