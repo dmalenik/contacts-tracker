@@ -38,7 +38,7 @@ async function loader({ request }: { request: { url: string } }) {
 
 function Root(): JSX.Element {
   const { contacts, q } = useLoaderData() as {
-    contacts: ContactsObject;
+    contacts: ContactsObject[];
     q: string | number | readonly string[] | undefined;
   };
   const navigation = useNavigation();
